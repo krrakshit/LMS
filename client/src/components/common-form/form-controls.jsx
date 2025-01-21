@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -11,23 +10,23 @@ import {
 import { Textarea } from "../ui/textarea";
 
 function FormControls({ formControls = [], formData, setFormData }) {
-  function renderComponentByType(controlItem) {
+  function renderComponentByType(getControlItem) {
     let element = null;
-    const currentControlItemValue = formData[controlItem.name] || "";
+    const currentControlItemValue = formData[getControlItem.name] || "";
 
-    switch (controlItem.componentType) {
+    switch (getControlItem.componentType) {
       case "input":
         element = (
           <Input
-            id={controlItem.name}
-            name={controlItem.name}
-            placeholder={controlItem.placeholder}
-            type={controlItem.type}
+            id={getControlItem.name}
+            name={getControlItem.name}
+            placeholder={getControlItem.placeholder}
+            type={getControlItem.type}
             value={currentControlItemValue}
             onChange={(event) =>
               setFormData({
                 ...formData,
-                [controlItem.name]: event.target.value,
+                [getControlItem.name]: event.target.value,
               })
             }
           />
@@ -39,17 +38,17 @@ function FormControls({ formControls = [], formData, setFormData }) {
             onValueChange={(value) =>
               setFormData({
                 ...formData,
-                [controlItem.name]: value,
+                [getControlItem.name]: value,
               })
             }
             value={currentControlItemValue}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={controlItem.label} />
+              <SelectValue placeholder={getControlItem.label} />
             </SelectTrigger>
             <SelectContent>
-              {controlItem.options && controlItem.options.length > 0
-                ? controlItem.options.map((optionItem) => (
+              {getControlItem.options && getControlItem.options.length > 0
+                ? getControlItem.options.map((optionItem) => (
                     <SelectItem key={optionItem.id} value={optionItem.id}>
                       {optionItem.label}
                     </SelectItem>
@@ -62,14 +61,14 @@ function FormControls({ formControls = [], formData, setFormData }) {
       case "textarea":
         element = (
           <Textarea
-            id={controlItem.name}
-            name={controlItem.name}
-            placeholder={controlItem.placeholder}
+            id={getControlItem.name}
+            name={getControlItem.name}
+            placeholder={getControlItem.placeholder}
             value={currentControlItemValue}
             onChange={(event) =>
               setFormData({
                 ...formData,
-                [controlItem.name]: event.target.value,
+                [getControlItem.name]: event.target.value,
               })
             }
           />
@@ -79,15 +78,15 @@ function FormControls({ formControls = [], formData, setFormData }) {
       default:
         element = (
           <Input
-            id={controlItem.name}
-            name={controlItem.name}
-            placeholder={controlItem.placeholder}
-            type={controlItem.type}
+            id={getControlItem.name}
+            name={getControlItem.name}
+            placeholder={getControlItem.placeholder}
+            type={getControlItem.type}
             value={currentControlItemValue}
             onChange={(event) =>
               setFormData({
                 ...formData,
-                [controlItem.name]: event.target.value,
+                [getControlItem.name]: event.target.value,
               })
             }
           />
@@ -100,20 +99,14 @@ function FormControls({ formControls = [], formData, setFormData }) {
 
   return (
     <div className="flex flex-col gap-3">
-      {formControls.map((controlItem) => (
-        <div key={controlItem.name}>
-          <Label htmlFor={controlItem.name}>{controlItem.label}</Label>
-          {renderComponentByType(controlItem)}
+      {formControls.map((controleItem) => (
+        <div key={controleItem.name}>
+          <Label htmlFor={controleItem.name}>{controleItem.label}</Label>
+          {renderComponentByType(controleItem)}
         </div>
       ))}
     </div>
   );
 }
-
-FormControls.propTypes = {
-  formControls: PropTypes.arrayOf(PropTypes.object),
-  formData: PropTypes.object.isRequired,
-  setFormData: PropTypes.func.isRequired
-};
 
 export default FormControls;

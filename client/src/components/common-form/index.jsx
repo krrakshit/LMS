@@ -1,6 +1,5 @@
 import { Button } from "../ui/button";
 import FormControls from "./form-controls";
-import PropTypes from 'prop-types';
 
 function CommonForm({
   handleSubmit,
@@ -24,14 +23,5 @@ function CommonForm({
     </form>
   );
 }
-
-CommonForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  buttonText: PropTypes.string,
-  formControls: PropTypes.arrayOf(PropTypes.object),
-  formData: PropTypes.object.isRequired,
-  setFormData: PropTypes.func.isRequired,
-  isButtonDisabled: PropTypes.bool,
-};
 
 export default CommonForm;
