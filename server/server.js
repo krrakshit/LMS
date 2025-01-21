@@ -16,9 +16,10 @@ const MONGO_URI = process.env.MONGO_URI;
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials:true,
   })
 );
 
@@ -26,7 +27,7 @@ app.use(express.json());
 
 //database connection
 mongoose
-  .connect(MONGO_URI)
+  .connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.2")
   .then(() => console.log("mongodb is connected"))
   .catch((e) => console.log(e));
 
