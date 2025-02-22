@@ -16,7 +16,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://lms-green-sigma.vercel.app/",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials:true,
@@ -27,7 +27,7 @@ app.use(express.json());
 
 //database connection
 mongoose
-  .connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.2")
+  .connect(MONGO_URI)
   .then(() => console.log("mongodb is connected"))
   .catch((e) => console.log(e));
 
